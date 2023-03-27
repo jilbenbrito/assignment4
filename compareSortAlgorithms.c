@@ -7,7 +7,7 @@
 int extraMemoryAllocated;
 
 //l = leftmost index, m = middle index, r = rightmost index
-void merge(int arr[], int l, int m, int r)
+void merge(int pData[], int l, int m, int r)
 {
 
   int i, j, k;
@@ -15,13 +15,13 @@ void merge(int arr[], int l, int m, int r)
   int n2 = r - m;
   
 //temp arrays to store the left elements and right elements
-  int *L = (int*) malloc(n1*sizeof(int));
-  int *R = (int*) malloc(n2*sizeof(int));
+  int *lTemp = (int*) malloc(n1*sizeof(int));
+  int *rTemp = (int*) malloc(n2*sizeof(int));
 
   for (i = 0; i < n1; i++)
-    L[i] = arr[l + i];
+    lTemp[i] = pData[l + i];
   for (j = 0; j < n2; j++)
-    R[j] = arr[m + 1+ j];
+    rTemp[j] = pData[m + 1+ j];
 
   i = 0; // Initial index of first subarray
   j = 0; // Initial index of second subarray
@@ -29,14 +29,14 @@ void merge(int arr[], int l, int m, int r)
   
   while (i < n1 && j < n2)
   {
-    if (L[i] <= R[j])
+    if (lTemp[i] <= rTemp[j])
     {
-      arr[k] = L[i];
+      pData[k] = lTemp[i];
       i++;
     }
     else
     {
-      arr[k] = R[j];
+      pData[k] = rTemp[j];
       j++;
     }
       k++;
@@ -45,7 +45,7 @@ void merge(int arr[], int l, int m, int r)
 are any */
   while (i < n1)
   {
-    arr[k] = L[i];
+    pData[k] = lTemp[i];
     i++;
     k++;
   }
@@ -53,12 +53,12 @@ are any */
 are any */
   while (j < n2)
   {
-    arr[k] = R[j];
+    pData[k] = rTemp[j];
     j++;
     k++;
   }
-  free(L);
-  free(R);
+  free(lTemp);
+  free(rTemp);
 }
 
 // implement merge sort
